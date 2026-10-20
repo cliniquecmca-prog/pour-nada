@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour Nada - Notre Histoire</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #d63384;
+  --secondary: #ff6b8b;
+  --accent: #fff0f3;
+  --text: #2b2b2b;
+  --bg: #fff5f7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Curseur personnalisé en forme de cœur */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23d63384"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') 12 12, auto;
+}
+
+a, button, .envelope-wrapper, .media-card {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="%23ff6b8b"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') 14 14, pointer !important;
+}
+
+/* Music Player */
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 18px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(214, 51, 132, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 107, 139, 0.3);
+}
+
+.music-player button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.music-player button:hover {
+  transform: scale(1.08);
+  background: #b8256e;
+}
+
+.music-info {
+  font-size: 12px;
+  font-family: 'Playfair Display', serif;
+}
+
+.music-info span {
+  display: block;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+header {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #fff0f3 0%, #ffe3e9 100%);
+  position: relative;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  animation: fadeInDown 1.2s ease;
+}
+
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 30px;
+  font-style: italic;
+  max-width: 600px;
+}
+
+.counter-container {
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(214, 51, 132, 0.12);
+  backdrop-filter: blur(5px);
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.counter-box {
+  text-align: center;
+  min-width: 70px;
+}
+
+.counter-number {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: 'Playfair Display', serif;
+}
+
+.counter-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #775;
+}
+
+section {
+  padding: 70px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 45px;
+  position: relative;
+}
+
+h2::after {
+  content: '❤️';
+  display: block;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+/* Animation Enveloppes et Lettres d'amour */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  height: 220px;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffb6c1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(214, 51, 132, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255, 107, 139, 0.3);
+}
+
+.envelope-wrapper:hover .envelope {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(214, 51, 132, 0.25);
+}
+
+/* Rabat de l'enveloppe */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 100px solid #ff9eaa;
+  transform-origin: top;
+  transition: transform 0.5s ease 0.2s, z-index 0.2s;
+  z-index: 4;
+}
+
+/* Cachet de cire */
+.wax-seal {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle, #e63946, #b81d24);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.envelope-wrapper:hover .wax-seal {
+  transform: translateX(-50%) scale(1.1);
+}
+
+/* La Lettre */
+.letter-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  background: #fffdf9;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+  border: 1px dashed #f4acb7;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.letter-card p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Animation Ouverture */
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+.envelope-wrapper.open .wax-seal {
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+}
+
+.envelope-wrapper.open .letter-card {
+  transform: translateY(-20px) scale(1.03);
+  z-index: 10;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  border: 1px solid #ff85a1;
+}
+
+.click-hint {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #a8426d;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  z-index: 4;
+  transition: opacity 0.3s;
+}
+
+.envelope-wrapper.open .click-hint {
+  opacity: 0;
+}
+
+/* Galerie Souvenirs style Polaroid Romantique */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.polaroid-card {
+  background: white;
+  padding: 15px 15px 25px 15px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(214, 51, 132, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.polaroid-card:nth-child(even) {
+  transform: rotate(-1.5deg);
+}
+
+.polaroid-card:nth-child(odd) {
+  transform: rotate(1.5deg);
+}
+
+.polaroid-card:hover {
+  transform: translateY(-8px) rotate(0deg) scale(1.02);
+  box-shadow: 0 20px 40px rgba(214, 51, 132, 0.18);
+  z-index: 5;
+}
+
+.media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.media-wrapper img, .media-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+/* Petit mot sous la vidéo / photo */
+.polaroid-caption {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.polaroid-caption h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.polaroid-caption p {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  background: #fff0f3;
+  color: var(--primary);
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.3rem;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 3rem; }
+  .counter-container { gap: 10px; padding: 15px 20px; }
+  .counter-number { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="music-player">
+  <button id="playBtn" onclick="togglePlay()">▶</button>
+  <div class="music-info">
+    <span>Stay</span>
+    Rihanna ft. Mikky Ekko
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="https://cdns-preview-d.dzcdn.net/stream/c-deda733fc70183b2763f03cb794ea264-3.mp3" type="audio/mp3">
+  </audio>
+</div>
+
+<header>
+  <h1>Pour Nada, mon amour ❤️</h1>
+  <p class="subtitle">5 mois de complicité, et en couple officiellement depuis le 9 octobre 2026</p>
+
+  <div class="counter-container">
+    <div class="counter-box">
+      <div class="counter-number" id="days">0</div>
+      <div class="counter-label">Jours</div>
+    </div>
+    <div class="counter-box">
+      <div class="counter-number" id="hours">0</div>
+      <div class="counter-label">Heures</div>
+    </div>
+    <div class="counter-box">
+      <div class="counter-number" id="minutes">0</div>
+      <div class="counter-label">Minutes</div>
+    </div>
+    <div class="counter-box">
+      <div class="counter-number" id="seconds">0</div>
+      <div class="counter-label">Secondes</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2>Lettres d'amour secrètes</h2>
+  <p style="text-align: center; color: #777; font-size: 0.95rem; margin-top: -30px; margin-bottom: 40px;">(Clique sur une enveloppe pour découvrir le message)</p>
+  
+  <div class="notes-grid">
+    <!-- Enveloppe 1 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>NADA TU ES LA PLUS BELLE CHOSE QUI ME SOIT ARRIVÉE CES DERNIÈRES ANNÉES ET TU LE RESTERAS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enveloppe 2 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>MA NADA, TA BEAUTÉ TRANSCENDE CELLE DES DÉESSES.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enveloppe 3 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>TON PARFUM EST L’ODEUR QUI M’APAISE ET ME RASSURE.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enveloppe 4 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>TES YEUX REFLÈTENT LA BEAUTÉ D’UNE ÂME PURE. J’AI LA CHANCE DE LES VOIR ET M’Y VOIR À L’INTÉRIEUR.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enveloppe 5 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>LA DOUCEUR DE TES LÈVRES DÉFIE LES LOIS DU RÉEL.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enveloppe 6 -->
+    <div class="envelope-wrapper" onclick="toggleEnvelope(this)">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="wax-seal">❤️</div>
+        <div class="click-hint">Ouvrir la lettre 💌</div>
+        <div class="letter-card">
+          <p>MON AMOUR POUR TOI DÉFIE LES LOIS DE LA RAISON, NADA.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Notre Galerie de Souvenirs</h2>
+  <div class="media-grid">
+    <!-- Photo Polaroid -->
+    <div class="polaroid-card">
+      <div class="media-wrapper">
+        <img src="https://lh3.googleusercontent.com/d/1o9CgEPdsnq-Cmc01sE2qFZUeMEtiYTP9=s1000" alt="Souvenir photo Nada">
+      </div>
+      <div class="polaroid-caption">
+        <h3>Ton plus beau sourire</h3>
+        <p>Un instant fové qui réchauffe mon cœur à chaque fois que je le regarde ✨</p>
+      </div>
+    </div>
+
+    <!-- Vidéo 1 Polaroid -->
+    <div class="polaroid-card">
+      <div class="media-wrapper">
+        <iframe src="https://drive.google.com/file/d/1gpUyZBcMvqVuhYiRVHScBwTiG8jfNCJ6/preview" allow="autoplay"></iframe>
+      </div>
+      <div class="polaroid-caption">
+        <h3>Douces Risaies</h3>
+        <p>Ta joie et ton humeur egaye ma vie mon amour 🎬</p>
+      </div>
+    </div>
+
+    <!-- Vidéo 2 Polaroid -->
+    <div class="polaroid-card">
+      <div class="media-wrapper">
+        <iframe src="https://drive.google.com/file/d/1c3A1GciFfLkVOLZlrC4oZd5INtSdH4Qw/preview" allow="autoplay"></iframe>
+      </div>
+      <div class="polaroid-caption">
+        <h3>Complicité & Éclats de rire</h3>
+        <p>Avec toi, le temps s'arrête et chaque seconde devient précieuse 🥰</p>
+      </div>
+    </div>
+
+    <!-- Vidéo 3 Polaroid -->
+    <div class="polaroid-card">
+      <div class="media-wrapper">
+        <iframe src="https://drive.google.com/file/d/1OicvSa-MjDS8EborIkg4P86F1P3aCNUO/preview" allow="autoplay"></iframe>
+      </div>
+      <div class="polaroid-caption">
+        <h3>Pour Toujours</h3>
+        <p>Le début d'un long et magnifique chapitre à tes côtés ❤️</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Je t'aime, Nada ❤️</p>
+</footer>
+
+<script>
+const music = document.getElementById('bgMusic');
+const playBtn = document.getElementById('playBtn');
+
+function togglePlay() {
+  if (music.paused) {
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        playBtn.textContent = '❚❚';
+      }).catch(error => {
+        console.log("Audio playback interrupted or blocked:", error);
+        playBtn.textContent = '▶';
+      });
+    }
+  } else {
+    music.pause();
+    playBtn.textContent = '▶';
+  }
+}
+
+// Interaction pour ouvrir les enveloppes
+function toggleEnvelope(element) {
+  element.classList.toggle('open');
+}
+
+// Compteur dynamique depuis le 9 octobre 2026
+const startDate = new Date('2026-10-09T00:00:00');
+
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  if (diff > 0) {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  }
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
+</script>
+</body>
+</html>
